@@ -16,10 +16,10 @@ class ST:                   # symbol table
         self.rep = {}
 
     def set(self, where, what):     # setter (mutator)
-        pass
+        self.rep[where] = what
 
     def get(self, where):           # getter (accessor)
-        pass
+        return self.rep[where]
 
     def __str__(self):              # abstract to text
         return str(self.rep)
