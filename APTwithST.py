@@ -71,38 +71,32 @@ def GenAPT(exp: str) -> BT:
     return nstack.top()
 
 def operate(op1, op2, operation, s: ST):
-    op1 = s.get(op1)
-    op2 = s.get(op2)
+    if op1.root() in s.rep:
+        op1 = s.get(op1.root())
+    else:
+        op1 = op1.root()
+    if op2.root() in s.rep:
+        op2 = s.get(op2.root())
+    else:
+        op2 = op2.root()
 
-    op1 = float(op1.root())
-    op2 = float(op2.root())
+    op1 = float(op1)
+    op2 = float(op2)
 
-    if op1 == int(op1):
-        op1 = int(op1)
-    if op2 == int(op2):
-        op2 = int(op2)
     r = 0
 
     if operation == "+":
         r = op1+op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
     elif operation == "*":
         r = op1*op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
     elif operation == "-":
         r = op1 - op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
     else:
         r = op1/op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
+
+    if r == int(r):
+        r = int(r)
+    return BT(r)
 
 def eval(x: BT, s: ST):
     if x.leaf():

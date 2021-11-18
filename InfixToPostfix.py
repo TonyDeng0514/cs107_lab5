@@ -6,6 +6,8 @@ adapted from https://runestone.academy/runestone/books/published/pythonds/BasicD
 >>> assert infixToPostfix("( A + B ) * C - ( D - E ) * ( F + G )") == 'A B + C * D E - F G + * -'
 >>> assert infixToPostfix("7") == '7'
 
+more test cases!!!
+
 >>> assert infixToPostfix("A + B + C + D + E") == 'A B + C + D + E +'
 >>> assert infixToPostfix("A - B - C - D - E") == "A B - C - D - E -"
 >>> assert infixToPostfix("A * B * C * D * E") == "A B * C * D * E *"

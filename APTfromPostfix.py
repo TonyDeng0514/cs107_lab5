@@ -42,32 +42,32 @@ from stack107 import *
 from BinTreeLinked import *
 
 def GenAPT(exp: str) -> BT:
-    assert type(exp) == type("a string")
-    tokenlist = exp.split()
-    nstack = stack107()
+    assert type(exp) == type("a string")  # precondition, input has to be a string
+    tokenlist = exp.split()  # split the string with delimiter as space
+    nstack = stack107()  # empty stach for future purpose
 
     for token in tokenlist:
         if token in '+-*/':
-            right = nstack.top()
-            nstack.pop()
-            left = nstack.top()
-            nstack.pop()
-            temp = BT(token, left, right)
-            nstack.push(temp)
+            right = nstack.top() # take the top
+            nstack.pop()  # pop the top
+            left = nstack.top()  # take the new top
+            nstack.pop()  # pop the new top
+            temp = BT(token, left, right)  # creat a BT using the top and new top
+            nstack.push(temp)  # push the BT as the new new top
         else:
-            nstack.push(BT(token))
+            nstack.push(BT(token))  # push numbers as a leaf
     return nstack.top()
 
-def operate(op1, op2, operation):
-    op1 = float(op1.root())
+def operate(op1: BT, op2: BT, operation) -> BT:  # help function
+    op1 = float(op1.root())  # precondition op1 and op2 are BT
     op2 = float(op2.root())
 
-    if op1 == int(op1):
+    if op1 == int(op1):  # changing the integer ones to integer type
         op1 = int(op1)
     if op2 == int(op2):
         op2 = int(op2)
-    r = 0
-
+    r = 0  # dummy output
+    # different methods for different operations
     if operation == "+":
         r = op1+op2
         if r == int(r):
@@ -90,11 +90,11 @@ def operate(op1, op2, operation):
         return BT(r)
 
 def eval(x: BT):
-    if x.leaf():
+    if x.leaf(): # if is a leaf, return the root.
         return x.root()
-    elif x.left().leaf() and x.right().leaf():
+    elif x.left().leaf() and x.right().leaf(): # if both branches are leaves, operate
         return operate(x.left(), x.right(), x.root())
-    elif not x.left().leaf():
+    elif not x.left().leaf(): # if one of them is not a leaf, recursivly run again
         x.rep.ltree = eval(x.left())
         return eval(x)
     elif not x.right().leaf():
