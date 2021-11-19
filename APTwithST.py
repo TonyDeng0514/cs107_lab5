@@ -50,7 +50,7 @@ Generating arithmetic parse tree from postfix expression
 """
 from stack107 import *
 from BinTreeLinked import *
-from SymbolTable import *
+from SymbolTable import ST
 
 
 def GenAPT(exp: str) -> BT:
@@ -71,11 +71,11 @@ def GenAPT(exp: str) -> BT:
     return nstack.top()
 
 def operate(op1, op2, operation, s: ST):
-    if op1.root() in s.rep:
+    if s.rep.lookup(op1.root()):
         op1 = s.get(op1.root())
     else:
         op1 = op1.root()
-    if op2.root() in s.rep:
+    if s.rep.lookup(op2.root()):
         op2 = s.get(op2.root())
     else:
         op2 = op2.root()
