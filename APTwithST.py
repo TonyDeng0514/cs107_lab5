@@ -60,30 +60,31 @@ def GenAPT(exp: str) -> BT:
 
     for token in tokenlist:
         if token in '+-*/':
-            right = nstack.top()
+            right = nstack.top()  # take the first number
             nstack.pop()
-            left = nstack.top()
+            left = nstack.top()  # take the second number
             nstack.pop()
-            temp = BT(token, left, right)
-            nstack.push(temp)
+            temp = BT(token, left, right)  # operate and generate a new BT
+            nstack.push(temp)  # add to top
         else:
-            nstack.push(BT(token))
+            nstack.push(BT(token))  # push number as BT
     return nstack.top()
 
+# this is operate when ST is a BST
 def operate(op1, op2, operation, s: ST):
-    if s.rep.lookup(op1.root()):
-        op1 = s.get(op1.root())
+    if s.rep.lookup(op1.root()): # if the key is in ST
+        op1 = s.get(op1.root()) # find value
     else:
-        op1 = op1.root()
+        op1 = op1.root()  # directly use value
     if s.rep.lookup(op2.root()):
         op2 = s.get(op2.root())
     else:
         op2 = op2.root()
 
-    op1 = float(op1)
+    op1 = float(op1) # transfer to float
     op2 = float(op2)
 
-    r = 0
+    r = 0  # dummy output
 
     if operation == "+":
         r = op1+op2
@@ -94,19 +95,19 @@ def operate(op1, op2, operation, s: ST):
     else:
         r = op1/op2
 
-    if r == int(r):
+    if r == int(r):  # make every integer an integer
         r = int(r)
     return BT(r)
 
 def eval(x: BT, s: ST):
     if x.leaf():
-        return s.get(x.root())
-    elif x.left().leaf() and x.right().leaf():
+        return s.get(x.root()) # if leaf, get root
+    elif x.left().leaf() and x.right().leaf(): # if both branches are leaves, operate
         return operate(x.left(), x.right(), x.root(), s)
-    elif not x.left().leaf():
+    elif not x.left().leaf(): # if one is not leaf, keep moving
         x.rep.ltree = eval(x.left(), s)
         return eval(x, s)
-    elif not x.right().leaf():
+    elif not x.right().leaf():  
         x.rep.rtree = eval(x.right(), s)
         return eval(x, s)
 

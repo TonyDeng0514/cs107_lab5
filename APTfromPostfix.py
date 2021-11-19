@@ -70,24 +70,15 @@ def operate(op1: BT, op2: BT, operation) -> BT:  # help function
     # different methods for different operations
     if operation == "+":
         r = op1+op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
     elif operation == "*":
         r = op1*op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
     elif operation == "-":
         r = op1 - op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
     else:
         r = op1/op2
-        if r == int(r):
-            r = int(r)
-        return BT(r)
+    if r == int(r):  # make every integer an integer
+        r = int(r)
+    return BT(r)    
 
 def eval(x: BT):
     if x.leaf(): # if is a leaf, return the root.
@@ -97,7 +88,7 @@ def eval(x: BT):
     elif not x.left().leaf(): # if one of them is not a leaf, recursivly run again
         x.rep.ltree = eval(x.left())
         return eval(x)
-    elif not x.right().leaf():
+    elif not x.right().leaf(): # same as above
         x.rep.rtree = eval(x.right())
         return eval(x)
 

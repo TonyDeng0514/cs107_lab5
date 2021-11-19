@@ -157,7 +157,7 @@ class BST(BT):
             return False
         
         if type(self.root()) == tuple:
-            if self.root()[0] == key:
+            if self.root()[0] == key: # since we are using tuples, first is key, second is value
                 return True
             elif self.root()[0] > key:
                 return self.left().lookup(key)
@@ -191,11 +191,11 @@ class ST:
     def __init__(self):
         self.rep = BST()
     
-    def set(self, where, what):
+    def set(self, where, what): # push as a tuple 
         self.rep.insert((where, what))
 
     def get(self, where):
-        if where == self.rep.root()[0]:
+        if where == self.rep.root()[0]: # using index to make sure which tuple we want.
             return self.rep.root()[1]
         elif where < self.rep.root()[0]:
             s = ST()
